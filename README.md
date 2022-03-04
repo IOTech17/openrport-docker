@@ -1,5 +1,6 @@
 # rport-docker
 repository to build a docker container for rport
+You will need to add a config file (preferably as a mounted read-only volume pointing to your local file)
 docker-compose
 ```
 rportd:

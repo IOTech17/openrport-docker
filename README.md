@@ -9,4 +9,4 @@ rportd:
       - 8080:8080
     command: -c /etc/rport/rportd.conf
     volumes:
-      - ./dev/rportd/rportd.conf:/etc/rport/rportd.conf```
+      - ./dev/rportd/rportd.conf:/etc/rport/rportd.conf

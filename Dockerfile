@@ -7,7 +7,7 @@ RUN apk add unzip
 
 WORKDIR /app/
 
-RUN wget -q https://github.com/cloudradar-monitoring/rport/releases/download/${rport_version}/rport_${rport_version}_Linux_x86_64.tar.gz -O rportd.tar.gz
+RUN wget -q https://github.com/cloudradar-monitoring/rport/releases/download/${rport_version}/rportd_${rport_version}_Linux_x86_64.tar.gz -O rportd.tar.gz
 RUN wget -q https://downloads.rport.io/frontend/stable/rport-frontend-stable-${frontend_build}.zip -O frontend.zip
 
 RUN tar xzf rportd.tar.gz rportd

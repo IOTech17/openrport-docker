@@ -1,7 +1,7 @@
 # rport-docker
 repository to build a docker container for rport
 ```
-  rportd:
+rportd:
     Image: acwhiteglint\rport:latest
     restart: unless-stopped
     ports:
@@ -9,5 +9,4 @@ repository to build a docker container for rport
       - 8080:8080
     command: -c /etc/rport/rportd.conf
     volumes:
-      - ./dev/rportd/rportd.conf:/etc/rport/rportd.conf
-      ```
+      - ./dev/rportd/rportd.conf:/etc/rport/rportd.conf```

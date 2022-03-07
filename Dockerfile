@@ -14,15 +14,18 @@ RUN tar xzf rportd.tar.gz rportd
 
 RUN unzip frontend.zip -d ./frontend
 
-
 FROM debian:latest
+
+ARG TZ="UTC"
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone
 
 COPY --from=downloader /app/rportd /usr/local/bin/rportd
 COPY --from=downloader /app/frontend/ /var/www/html/
 
-COPY ./start-rportd.sh /usr/local/bin/
-
 RUN useradd -d /var/lib/rport -m -U -r -s /bin/false rport
+
+RUN apt-get remove --purge -y --allow-remove-essential apt && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 USER rport
 
@@ -30,5 +33,4 @@ VOLUME [ "/var/lib/rport/" ]
 
 EXPOSE 8080
 EXPOSE 3000
-
-ENTRYPOINT [ "/bin/bash", "/usr/local/bin/start-rportd.sh", "--data-dir", "/var/lib/rport" ]
+EXPOSE 20000-20050

@@ -34,3 +34,6 @@ VOLUME [ "/var/lib/rport/" ]
 EXPOSE 8080
 EXPOSE 3000
 EXPOSE 20000-20050
+
+HEALTHCHECK --interval=10s --timeout=5s\
+    CMD wget --spider -S http://localhost:3000 2>&1 > /dev/null | grep -q "200 OK$"

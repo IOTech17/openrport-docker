@@ -1,6 +1,6 @@
 FROM alpine:3.15 as downloader
 
-ARG rport_version=0.6.0
+ARG rport_version=0.6.1
 ARG frontend_build=0.6.0-build-966
 
 RUN apk add unzip

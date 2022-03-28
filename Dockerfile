@@ -54,4 +54,4 @@ EXPOSE 4822
 CMD ["/usr/bin/supervisord"]
 
 HEALTHCHECK --interval=30s --timeout=5s\
-    CMD wget --spider -S https://localhost:3000 2>&1 > /dev/null | grep -q "200 OK$"
+    CMD wget --no-check-certificate --spider -S https://localhost:3000 2>&1 > /dev/null | grep -q "200 OK$"

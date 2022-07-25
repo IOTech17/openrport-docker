@@ -1,6 +1,6 @@
 FROM alpine:3.15 as downloader
 
-ARG rport_version=0.8.0
+ARG rport_version=0.8.1
 ARG frontend_build=0.8.0-build-1092
 ARG NOVNC_VERSION=1.3.0
 
@@ -23,7 +23,11 @@ ARG TZ="UTC"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone
 
-RUN export DEBIAN_FRONTEND=noninteractive && apt update && apt install -y --no-install-recommends wget fail2ban iptables supervisor
+RUN export DEBIAN_FRONTEND=noninteractive \
+  && apt update \
+  && apt upgrade -y \
+  && apt install -y --no-install-recommends wget fail2ban iptables supervisor \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY --from=downloader /app/rportd /usr/local/bin/rportd
 COPY --from=downloader /app/frontend/ /var/www/html/
@@ -39,8 +43,6 @@ COPY defaults-debian.conf  /etc/fail2ban/jail.d
 COPY rportd-client-connect.conf /etc/fail2ban/filter.d/
 
 RUN service fail2ban restart
-
-RUN apt-get remove --purge -y --allow-remove-essential apt && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 USER rport
 

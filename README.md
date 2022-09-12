@@ -9,7 +9,7 @@ version: '3.9'
 services:
   rport-server:
     container_name: rport
-    image: acwhiteglint/rport:latest
+    image: iotech17/rport:latest
     cap_add:
      - sys_nice
     ulimits:

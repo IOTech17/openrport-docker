@@ -13,8 +13,8 @@ RUN wget -q https://github.com/cloudradar-monitoring/rport/releases/download/${r
      && tar xzf rportd.tar.gz rportd
 RUN wget -q https://downloads.rport.io/frontend/stable/rport-frontend-${frontend_build}.zip -O frontend.zip \
     && unzip frontend.zip -d ./frontend
-RUN wget -q https://github.com/cloudradar-monitoring/rport/releases/download/0.9.0/rport-plus_0.1.0@0.9.0_Linux_x86_64.tar.gz -O rportplus.tar.gz \
-    && tar xzf rportplus.tar.gz -d ./rportplus
+RUN mkdir rportplus && wget -q https://github.com/cloudradar-monitoring/rport/releases/download/0.9.0/rport-plus_0.1.0@0.9.0_Linux_x86_64.tar.gz -O rportplus.tar.gz \
+    && tar xzf rportplus.tar.gz -c /rportplus
 RUN wget https://github.com/novnc/noVNC/archive/refs/tags/v${NOVNC_VERSION}.zip -O novnc.zip \
     && unzip novnc.zip && mv noVNC-${NOVNC_VERSION} ./novnc
 

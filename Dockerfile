@@ -1,7 +1,7 @@
 FROM alpine:3.15 as downloader
 
-ARG rport_version=0.8.9
-ARG frontend_build=stable-0.8.0-build-1092
+ARG rport_version=0.9.0
+ARG frontend_build=0.9.0-build-1128
 #ARG rportplus=0.1.0
 ARG NOVNC_VERSION=1.3.0
 
@@ -56,8 +56,7 @@ EXPOSE 3000
 EXPOSE 20000-30000
 EXPOSE 4822
 
-#CMD ["/usr/bin/supervisord"]
-#CMD ["/usr/local/bin/rportd" "--data-dir" "/var/lib/rport" "-c" "/etc/rport/rportd.conf"]
+CMD ["/usr/bin/supervisord"]
 
 HEALTHCHECK --interval=30s --timeout=5s\
     CMD wget --no-check-certificate --spider -S https://localhost:3000 2>&1 > /dev/null | grep -q "200 OK$"

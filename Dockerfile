@@ -57,7 +57,7 @@ EXPOSE 20000-30000
 EXPOSE 4822
 
 #CMD ["/usr/bin/supervisord"]
-CMD ["/usr/local/bin/rportd --data-dir /var/lib/rport -c /etc/rport/rportd.conf"]
+#CMD ["/usr/local/bin/rportd" "--data-dir" "/var/lib/rport" "-c" "/etc/rport/rportd.conf"]
 
 HEALTHCHECK --interval=30s --timeout=5s\
     CMD wget --no-check-certificate --spider -S https://localhost:3000 2>&1 > /dev/null | grep -q "200 OK$"

@@ -18,7 +18,7 @@ RUN mkdir rportplus && wget -q https://github.com/cloudradar-monitoring/rport/re
 RUN wget https://github.com/novnc/noVNC/archive/refs/tags/v${NOVNC_VERSION}.zip -O novnc.zip \
     && unzip novnc.zip && mv noVNC-${NOVNC_VERSION} ./novnc
 
-FROM ubuntu:latest
+FROM guacamole/guacd:latest
 
 USER root
 

@@ -35,7 +35,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 COPY --from=downloader /app/rportd /usr/local/bin/rportd
 COPY --from=downloader /app/frontend/ /var/www/html/
 COPY --from=downloader /app/novnc/ /var/lib/rport-novnc
-#COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 RUN useradd -d /var/lib/rport -m -U -r -s /bin/false rport
 
@@ -52,9 +52,9 @@ USER rport
 EXPOSE 8080
 EXPOSE 3000
 EXPOSE 20000-30000
-#EXPOSE 4822
+EXPOSE 4822
 
-#CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord"]
 
 HEALTHCHECK --interval=30s --timeout=5s\
     CMD wget --no-check-certificate --spider -S https://localhost:3000 2>&1 > /dev/null | grep -q "200 OK$"

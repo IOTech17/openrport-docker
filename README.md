@@ -10,13 +10,6 @@ services:
   rport-server:
     container_name: rport
     image: iotech17/rport:latest
-    cap_add:
-     - sys_nice
-    ulimits:
-      nproc: 65535
-      nofile:
-        soft: 262144
-        hard: 262144
     restart: always
     privileged: true
     ports:

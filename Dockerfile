@@ -29,7 +29,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 RUN export DEBIAN_FRONTEND=noninteractive \
   && apt update \
   && apt upgrade -y \
-  && apt install -y --no-install-recommends wget procps supervisord\
+  && apt install -y --no-install-recommends wget procps supervisor\
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY --from=downloader /app/rportd /usr/local/bin/rportd

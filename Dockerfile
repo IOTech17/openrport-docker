@@ -18,7 +18,7 @@ RUN mkdir rportplus && wget -q https://github.com/cloudradar-monitoring/rport/re
 RUN wget https://github.com/novnc/noVNC/archive/refs/tags/v${NOVNC_VERSION}.zip -O novnc.zip \
     && unzip novnc.zip && mv noVNC-${NOVNC_VERSION} ./novnc
 
-FROM ubuntu:latest
+FROM guacamole/guacd:latest
 
 USER root
 
@@ -29,13 +29,13 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 RUN export DEBIAN_FRONTEND=noninteractive \
   && apt update \
   && apt upgrade -y \
-  && apt install -y --no-install-recommends wget procps\
+  && apt install -y --no-install-recommends wget procps supervisord\
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY --from=downloader /app/rportd /usr/local/bin/rportd
 COPY --from=downloader /app/frontend/ /var/www/html/
 COPY --from=downloader /app/novnc/ /var/lib/rport-novnc
-#COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 RUN useradd -d /var/lib/rport -m -U -r -s /bin/false rport
 

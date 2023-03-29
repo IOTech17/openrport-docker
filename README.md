@@ -22,6 +22,8 @@ services:
       - /path/rport.key:/var/lib/rport/rport.key:ro
       - /path/rport.crt:/var/lib/rport/rport.crt:ro
       - data:/var/lib/rport/
+    
+    command: bash -c "/usr/local/bin/rportd --data-dir /var/lib/rport -c /etc/rport/rportd.conf"
       
     healthcheck:
       test: wget --no-check-certificate --spider -S https://localhost:3000 2>&1 > /dev/null | grep -q "200 OK$"

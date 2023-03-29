@@ -31,7 +31,7 @@ RUN apk update && apk upgrade && apk add --no-cache wget supervisor && apk --pur
 COPY --from=downloader /app/rportd /usr/local/bin/rportd
 COPY --from=downloader /app/frontend/ /var/www/html/
 COPY --from=downloader /app/novnc/ /var/lib/rport-novnc
-COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY supervisord.conf /etc/supervisord.conf
 
 RUN useradd -d /var/lib/rport -m -U -r -s /bin/false rport
 

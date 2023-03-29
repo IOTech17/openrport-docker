@@ -26,7 +26,7 @@ ARG TZ="UTC"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone
 
-RUN apk update && apk upgrade && apk add --no-cache wget supervisor
+RUN apk update && apk upgrade && apk add --no-cache wget supervisor && apk --purge del apk-tools
 
 COPY --from=downloader /app/rportd /usr/local/bin/rportd
 COPY --from=downloader /app/frontend/ /var/www/html/

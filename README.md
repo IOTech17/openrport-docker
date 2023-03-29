@@ -22,6 +22,13 @@ services:
       - /path/rport.key:/var/lib/rport/rport.key:ro
       - /path/rport.crt:/var/lib/rport/rport.crt:ro
       - data:/var/lib/rport/
+      
+    healthcheck:
+      test: wget --no-check-certificate --spider -S https://localhost:3000 2>&1 > /dev/null | grep -q "200 OK$"
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
 
 volumes:
   data:

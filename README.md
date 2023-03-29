@@ -1,7 +1,7 @@
 # rport-docker
 repository to build a docker container for rport.
 
-The new version doesn't have guacd inside the container as guacd switched from debian based image to Alpine linux. Unfortunately Rport doesn't work on Alpine linux.
+The new version doesn't have guacd inside the container as Apache switched from debian based image to Alpine linux for Guacd. Unfortunately Rport doesn't work on Alpine linux.
 
 You will need to add a config file (preferably as a mounted read-only volume pointing to your local file)
 

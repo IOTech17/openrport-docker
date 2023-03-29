@@ -1,6 +1,8 @@
 # rport-docker
-repository to build a docker container for rport, this version contains guacd to use RDP via web browser (remember to disable nla authentication for RDP).
-Fail2ban and iptables are also running to further protect rport from scanner and password guessing attacks.
+repository to build a docker container for rport.
+
+The new version doesn't have guacd inside the container as guacd switched from debian based image to Alpine linux. Unfortunately Rport doesn't work on Alpine linux.
+
 You will need to add a config file (preferably as a mounted read-only volume pointing to your local file)
 
 docker-compose
@@ -14,7 +16,6 @@ services:
     privileged: true
     ports:
       - 3000:3000
-      - 4822:4822
       - 10000:8080
       - 20000-20100:20000-20100
     volumes:

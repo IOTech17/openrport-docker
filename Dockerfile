@@ -18,7 +18,7 @@ RUN mkdir rportplus && wget -q https://github.com/realvnc-labs/rport/releases/do
 RUN wget https://github.com/novnc/noVNC/archive/refs/tags/v${NOVNC_VERSION}.zip -O novnc.zip \
     && unzip novnc.zip && mv noVNC-${NOVNC_VERSION} ./novnc
 
-FROM guacamole/guacd:latest
+FROM ubuntu:latest
 
 USER root
 
@@ -26,12 +26,16 @@ ARG TZ="UTC"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone
 
-RUN apk update && apk upgrade && apk add --no-cache wget supervisor && apk --purge del apk-tools
+RUN export DEBIAN_FRONTEND=noninteractive \
+  && apt update \
+  && apt upgrade -y \
+  && apt install -y --no-install-recommends wget procps supervisor\
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY --from=downloader /app/rportd /usr/local/bin/rportd
 COPY --from=downloader /app/frontend/ /var/www/html/
 COPY --from=downloader /app/novnc/ /var/lib/rport-novnc
-COPY supervisord.conf /etc/supervisord.conf
+#COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 RUN useradd -d /var/lib/rport -m -U -r -s /bin/false rport
 
@@ -48,6 +52,3 @@ USER rport
 EXPOSE 8080
 EXPOSE 3000
 EXPOSE 20000-30000
-EXPOSE 4822
-
-CMD ["/usr/bin/supervisord"]

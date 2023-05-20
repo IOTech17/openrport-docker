@@ -1,7 +1,7 @@
 FROM alpine:3.17 as downloader
 
 ARG rport_version=0.9.12
-ARG frontend_build=0.9.12-build-1128
+ARG frontend_build=0.9.12-2-build-1130
 #ARG rportplus=0.1.0
 ARG NOVNC_VERSION=1.3.0
 

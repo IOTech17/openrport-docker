@@ -1,4 +1,4 @@
-FROM alpine:3.17 as downloader
+FROM alpine:3.18 as downloader
 
 ARG rport_version=0.9.12
 ARG frontend_build=0.9.12-2-build-1130

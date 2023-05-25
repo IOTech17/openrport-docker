@@ -5,6 +5,8 @@ The new version doesn't have guacd inside the container as Apache switched from 
 
 You will need to add a config file (preferably as a mounted read-only volume pointing to your local file)
 
+If you want to use a database to store the data please follow this guide : https://oss.rport.io/get-started/api-authentication/
+
 docker-compose
 ```
 version: '3.9'

@@ -11,7 +11,7 @@ version: '3.9'
 services:
   rport-server:
     container_name: rport
-    image: iotech17/rport-alpine:latest
+    image: iotech17/rport:latest
     restart: always
     privileged: true
     ports:

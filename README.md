@@ -11,7 +11,7 @@ version: '3.9'
 services:
   rport-server:
     container_name: rport
-    image: iotech17/rport:latest
+    image: iotech17/openrport:latest
     restart: always
     privileged: true
     ports:
@@ -24,6 +24,11 @@ services:
      - /home/user/rport/rport.key:/var/lib/rport/rport.key:ro
      - /home/user/rport/rport.crt:/var/lib/rport/rport.crt:ro
       - data:/var/lib/rport/
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-check-certificate --spider -S http://localhost:3000 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   data:

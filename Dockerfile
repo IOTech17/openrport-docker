@@ -23,14 +23,7 @@ ARG TZ="UTC"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone
 
-RUN echo 'https://storage.sev.monster/alpine/edge/testing' | tee -a /etc/apk/repositories && \
-    wget https://storage.sev.monster/alpine/edge/testing/x86_64/sevmonster-keys-1-r0.apk && \ 
-    sh -c ' apk add --allow-untrusted ./sevmonster-keys-1-r0.apk && \ 
-    apk update \
-    && apk add gcompat wget supervisor \
-    && rm /lib/ld-linux-x86-64.so.2 \
-    && apk add --force-overwrite glibc \
-    && apk add glibc-bin'
+RUN apk add gcompat wget supervisor
     
 RUN apk --purge del apk-tools && rm -rf /tmp/* /var/tmp/*
 
@@ -42,13 +35,7 @@ COPY supervisord.conf /etc/supervisord.conf
 
 RUN useradd -d /var/lib/rport -m -U -r -s /bin/false rport
 
-RUN touch /var/lib/rport/rport.log && chown rport /var/lib/rport/rport.log
-
-#COPY jail.conf /etc/fail2ban/
-#COPY defaults-debian.conf  /etc/fail2ban/jail.d
-#COPY rportd-client-connect.conf /etc/fail2ban/filter.d/
-
-#RUN service fail2ban restart
+RUN touch /var/lib/rport/rport.log && chown rport /var/lib/rport/rport.log && touch /var/lib/rport/supervisord.log && chown rport /var/lib/rport/supervisord.log
 
 USER rport
 
@@ -56,7 +43,7 @@ RUN chmod 755 -R /var/lib/rport/
 
 EXPOSE 8080
 EXPOSE 3000
-EXPOSE 20000-30000
+EXPOSE 30000-35000
 EXPOSE 4822
 
 CMD ["/usr/bin/supervisord"]

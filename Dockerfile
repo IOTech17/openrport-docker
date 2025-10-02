@@ -1,4 +1,4 @@
-FROM alpine:3.17 as downloader
+FROM alpine:latest as downloader
 
 ARG rport_version=0.9.14
 ARG frontend_build=0.9.12-17-build-1145
@@ -15,7 +15,7 @@ RUN wget -q https://downloads.openrport.io/frontend/stable/rport-frontend-${fron
 RUN wget https://github.com/novnc/noVNC/archive/refs/tags/v${NOVNC_VERSION}.zip -O novnc.zip \
     && unzip novnc.zip && mv noVNC-${NOVNC_VERSION} ./novnc
 
-FROM guacamole/guacd:latest
+FROM alpine:latest
 
 USER root
 
@@ -23,7 +23,7 @@ ARG TZ="UTC"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone
 
-RUN apk add gcompat wget supervisor
+RUN apk add --no-cache gcompat wget supervisor guacamole-server shadow
     
 RUN apk --purge del apk-tools && rm -rf /tmp/* /var/tmp/*
 
